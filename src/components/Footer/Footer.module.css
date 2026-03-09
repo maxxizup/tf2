@@ -1,0 +1,14 @@
+.footer {
+    height: 62px;
+    padding: 10px;
+    background: coral;
+    display: flex;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    margin-right: 50px;
+}

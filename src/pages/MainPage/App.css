@@ -1,0 +1,134 @@
+.App {
+
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+    background: #292929;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content__title {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 65px;
+    color: azure;
+}
+
+.content__desc {
+    text-align: center;
+    margin-top: 20px;
+    color: gainsboro;
+    font-size: 24px;
+}
+
+.keyForm {
+    background: dimgray;
+    border-radius: 15px;
+    padding: 15px;
+    width: 700px;
+    height: 400px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.keyForm__input {
+    height: 46px;
+    font-size: 40px;
+    font-weight: bold;
+    width: 100%;
+    border: none;
+    background: transparent;
+}
+
+.keyForm__input:focus {
+    outline: none;
+}
+
+.purchase-selector {
+    display: flex;
+    background: darkgray;
+    width: 100%;
+    height: 60px;
+    border-radius: 15px;
+    justify-content: space-between;
+    padding: 5px;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.purchase-selector__button {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    gap: 10px;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.purchase-selector__button:first-child {
+    background: darkorange;
+    color: whitesmoke;
+}
+
+.purchase-selector__money {
+    display: flex;
+    justify-content: space-between;
+    background: darkgray;
+    border-radius: 10px;
+    color: #474b4a;
+    padding: 10px;
+    width: 100%;
+}
+
+.purchase-selector__money-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase-selector__money-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.keyForm__submit-btn {
+    background: orange;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.Select {
+    height: 100%;
+    padding: 10px;
+    background: transparent;
+    border-radius: 10px;
+    width: 150px;
+    margin-top: 5px;
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.Option {
+    color: white;
+}
