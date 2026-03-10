@@ -1,35 +1,83 @@
 import { Header } from "@/components/Header/Header";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Footer } from "@/components/Footer/Footer";
+import { TradeForm } from "@/components/TradeForm/TradeForm";
+import { Loader } from "@/components/Loader/Loader";
 
 function App() {
-    const [amount, setAmount] = useState("");
+    // Количество ключей
+    const [amount, setAmount] = useState<number | "">("");
+    // Цена за 1 ключ
+    const [price, setPrice] = useState<number | null>(120);
+    // Итоговая стоимость
+    const [cost, setCost] = useState<number | "">("");
 
-    async function sendReq(e, amount) {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const URL = "https://full-states-shop.loca.lt";
+
+    // Получаем цену с сервака
+    useEffect(() => {
+        getPrice();
+    }, []);
+
+    // Калькулируем цену в зависимости от кол-ва нужных ключей
+    useEffect(() => {
+        if (typeof amount === "number" && typeof price === "number") {
+            const roundedPrice = Number(price.toFixed(2)); // Округленная цена за 1шт
+            const calculatedCost = Number((roundedPrice * amount).toFixed(2)); // Округленая итоговая стоимость
+            setCost(calculatedCost);
+        } else {
+            setCost("");
+        }
+    }, [amount, price]);
+
+    async function getPrice() {
+        setIsLoading(true);
+
         try {
-            e.preventDefault();
+            const response = await fetch(`${URL}/api/get-key-price`);
 
+            if (!response.ok) {
+                throw new Error("Ошибка получения цены");
+            }
+
+            const data = await response.json();
+            const receivedPrice = data.price; // Цена ключа с апишки стима
+            const resultPrice = receivedPrice * 0.78; // Итоговая цена за ключ
+
+            setPrice(resultPrice);
+        } catch (e: any) {
+            console.error(e.message);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    async function buyKeys() {
+        setIsLoading(true);
+
+        try {
             console.log(`Покупаем ${amount} ключей...`);
 
-            const response = await fetch(
-                "https://tough-clubs-attack.loca.lt/api/buy/keys",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ amount: +amount }),
-                }
-            );
+            const response = await fetch(`${URL}/api/buy/keys`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ amount: +amount }),
+            });
             if (!response.ok) {
                 throw new Error(`Ошибка: ${response.status}`);
             }
             console.log(response.status);
             const data = await response.json();
             console.log(data);
-        } catch (e) {
+        } catch (e: any) {
             console.error(e.message);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -37,69 +85,32 @@ function App() {
         <div className="App">
             <div className="page-wrapper">
                 <Header />
-                <main className="content">
-                    <h1 className="content__title">
-                        Мгновенный обмен <br /> ключей и билетов{" "}
-                        <span style={{ color: "orange" }}>TF2</span>
-                    </h1>
-                    <p className="content__desc">
-                        Быстрый, безопасный и автоматический сервис <br /> для
-                        покупки и продажи ключей Mann Co. <br /> без скрытых
-                        комиссий
-                    </p>
-                    <form
-                        className="keyForm"
-                        onSubmit={(e) => sendReq(e, amount)}
-                    >
-                        <div className="purchase-selector">
-                            <button className="purchase-selector__button">
-                                Купить
-                            </button>
-                            <button className="purchase-selector__button">
-                                Продать
-                            </button>
-                        </div>
-                        <div className="purchase-selector__money">
-                            <div className="purchase-selector__money-left">
-                                <span>Вы платите</span>
-                                <input
-                                    className="keyForm__input"
-                                    type="text"
-                                    placeholder="Сумма"
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                />
-                            </div>
-                            <div className="purchase-selector__money-right">
-                                <span>Валюта</span>
-                                <select className="Select">
-                                    <option className="Option" value="RUB">
-                                        RUB
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="purchase-selector__money">
-                            <div className="purchase-selector__money-left">
-                                <span>Вы получите</span>
-                                <input
-                                    className="keyForm__input"
-                                    type="text"
-                                    placeholder="Кол-во"
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                />
-                            </div>
-                            <div className="purchase-selector__money-right">
-                                <select className="Select">
-                                    <option className="Option"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <button className="keyForm__submit-btn" type="submit">
-                            Купить
-                        </button>
-                    </form>
+                <main
+                    className="content"
+                    style={isLoading ? { justifyContent: "center" } : undefined}
+                >
+                    {isLoading ? (
+                        <Loader />
+                    ) : (
+                        <>
+                            <h1 className="content__title">
+                                Мгновенный обмен <br /> ключей и билетов{" "}
+                                <span style={{ color: "orange" }}>TF2</span>
+                            </h1>
+                            <p className="content__desc">
+                                Быстрый, безопасный и автоматический сервис{" "}
+                                <br /> для покупки и продажи ключей Mann Co.{" "}
+                                <br /> без скрытых комиссий 77.35.47.116
+                            </p>
+                            <TradeForm
+                                amount={amount}
+                                setAmount={setAmount}
+                                buyKeys={buyKeys}
+                                cost={cost}
+                                setCost={setCost}
+                            />
+                        </>
+                    )}
                 </main>
                 <Footer />
             </div>
