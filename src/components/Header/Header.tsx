@@ -1,15 +1,11 @@
 import cls from "./Header.module.css";
 import { Link } from "react-router";
+import { Logo } from "@/components/Logo/Logo";
 
 export const Header = () => {
     return (
         <header className={cls.header}>
-            <div className={cls.logo}>
-                <img src="/src/assets/react.svg" alt="" />
-                <h3>
-                    <span style={{ color: "red" }}>TF2</span>Shop
-                </h3>
-            </div>
+            <Logo />
             <div className={cls.linkGroup}>
                 <Link className={cls.link} to="/">
                     Главная
@@ -23,6 +19,7 @@ export const Header = () => {
                 <Link className={cls.link} to="/">
                     Контакты
                 </Link>
+                <p className={cls.link}>77.35.47.116</p>
             </div>
         </header>
     );

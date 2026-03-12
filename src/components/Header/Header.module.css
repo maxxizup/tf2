@@ -1,16 +1,10 @@
 .header {
-    height: 62px;
+    height: 90px;
     padding: 10px;
-    background: coral;
+    background: white;
     display: flex;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    height: 100%;
-    margin-right: 50px;
+    border-bottom: 2px solid;
+    border-image: linear-gradient(to right, transparent, gainsboro, transparent) 1;
 }
 
 .linkGroup {

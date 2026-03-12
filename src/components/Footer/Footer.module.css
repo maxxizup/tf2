@@ -1,8 +1,11 @@
 .footer {
-    height: 62px;
+    margin-top: 20px;
+    height: 90px;
     padding: 10px;
-    background: coral;
+    background: white;
     display: flex;
+    border-top: 2px solid;
+    border-image: linear-gradient(to right, transparent, gainsboro, transparent) 1;
 }
 
 .logo {

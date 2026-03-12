@@ -1,5 +1,11 @@
 .App {
+    background: white;
+}
 
+.container {
+    height: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .page-wrapper {
@@ -10,7 +16,7 @@
 
 .content {
     flex: 1;
-    background: #292929;
+    background: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,18 +26,88 @@
     text-align: center;
     margin-top: 50px;
     font-size: 65px;
-    color: azure;
+    color: black;
 }
 
 .content__desc {
     text-align: center;
     margin-top: 20px;
-    color: gainsboro;
+    color: #474b4a;
     font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.cardGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.cardItem {
+    background: lightgray;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    height: 450px;
+    width: 450px;
+    gap: 10px;
+    transition: box-shadow 0.3s;
+}
+
+.cardItem:hover {
+    box-shadow: 0 6px 10px 2px rgba(0,0,0,0.3);
+}
+
+.cardTitle {
+    margin-top: 20px;
+    font-size: 28px;
+}
+
+.cardItemDesc {
+    margin-top: -20px;
+}
+
+.cardImg {
+    height: 250px;
+    width: 250px;
+    filter: drop-shadow(0 18px 10px rgba(0,0,0,.55));
+}
+
+.cardImg_ticket {
+    height: 250px;
+    filter: drop-shadow(0 18px 10px rgba(0,0,0,.55));
+    overflow: hidden;
+}
+
+.cardBtnsGroup {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.cardBtn {
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    width: 120px;
+    cursor: pointer;
+    background: orange;
+    color: white;
+    border-radius: 5px;
+    transition: all 0.2s ease-in;
+}
+
+.cardBtn:hover {
+    /*filter: drop-shadow(0 18px 10px rgba(0,0,0,.55));*/
+    /*opacity: 0.7;*/
+    background: coral;
+    /*color: black;*/
 }
 
 .Loader {
     height: 100%;
-    /*display: flex;*/
     justify-content: center;
 }
